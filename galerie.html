@@ -440,6 +440,10 @@ p+p{margin-top:.9em}
   .hero .ph::after{background:linear-gradient(180deg,rgba(16,5,35,.78),rgba(16,5,35,.7) 60%,rgba(16,5,35,.55))}
 }
 
+
+/* photos réelles : data-img chargé par script, sinon cadre « Photo à venir » */
+.ph.ok{background:var(--img) var(--pos,center)/cover no-repeat}
+.ph.ok .ph-label,.ph.ok + .ph-label{display:none}
 </style>
 </head>
 <body>
@@ -534,11 +538,12 @@ p+p{margin-top:.9em}
 
 <script>
 (function(){
-  var cats=['mariages','buffets','cocktails','broche','cuisine'],
-      noms={mariages:'Mariages',buffets:'Buffets',cocktails:'Cocktails',broche:'Broche',cuisine:'En cuisine'},
-      mur=document.getElementById('mur'), items=[];
-  for(var i=0;i<15;i++){var c=cats[i%5];items.push(c);
-    mur.insertAdjacentHTML('beforeend','<button type="button" data-c="'+c+'" data-i="'+i+'"><div class="ph"><span class="ph-label">'+noms[c]+' · photo '+(i+1)+'</span></div></button>');}
+  var noms={mariages:'Mariages',buffets:'Buffets',cocktails:'Cocktails',broche:'Broche',cuisine:'En cuisine'},
+      mur=document.getElementById('mur'),
+      alts={"mariage-salle": "Salle de réception de mariage aux tables dressées", "cocktail-pieces": "Buffet de pièces cocktail dans un jardin fleuri", "broche-cochon": "Cochon à la broche au feu de bois", "atelier-crepes": "Atelier galettes et crêpes préparé sur place", "mariage-service": "Un cuisinier de Saveurs & des Lys dresse une table sous chapiteau", "buffet-chaud": "Buffet chaud de plats mijotés", "plancha-brochettes": "Brochettes grillées à la plancha lors d'une réception en plein air", "equipe": "L'équipe de Saveurs & des Lys en tenue de service", "buffet-froid": "Buffet froid de charcuteries et pièces froides"},
+      pos={"mariage-salle": "50% 70%", "cocktail-pieces": "50% 65%", "broche-cochon": "55% 55%", "atelier-crepes": "30% 40%", "mariage-service": "72% 40%", "buffet-chaud": "center", "plancha-brochettes": "50% 70%", "equipe": "50% 45%", "buffet-froid": "center"},
+      items=[["mariages", "mariage-salle"], ["cocktails", "cocktail-pieces"], ["broche", "broche-cochon"], ["cuisine", "atelier-crepes"], ["mariages", "mariage-service"], ["buffets", "buffet-chaud"], ["cocktails", "plancha-brochettes"], ["cuisine", "equipe"], ["buffets", "buffet-froid"]];
+  items.forEach(function(it,i){mur.insertAdjacentHTML('beforeend','<button type="button" data-c="'+it[0]+'" data-f="'+it[1]+'"><div class="ph" data-img="images/'+it[1]+'.jpg" data-pos="'+pos[it[1]]+'" data-alt="'+alts[it[1]].replace(/"/g,'&quot;')+'"><span class="ph-label">'+noms[it[0]]+' · photo '+(i+1)+'</span></div></button>');});
   var btns=[].slice.call(mur.children), boite=document.getElementById('boite'), lab=document.getElementById('boite-label'), cur=0;
   document.querySelectorAll('.filtres button').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('.filtres button').forEach(function(x){x.setAttribute('aria-pressed','false')});
@@ -546,7 +551,7 @@ p+p{margin-top:.9em}
     btns.forEach(function(x){x.classList.toggle('cache',b.dataset.f!=='tout'&&x.dataset.c!==b.dataset.f)});
   })});
   function visibles(){return btns.filter(function(x){return !x.classList.contains('cache')})}
-  function montre(n){var v=visibles();cur=(n+v.length)%v.length;lab.textContent=v[cur].textContent+' (agrandie)'}
+  function montre(n){var v=visibles();cur=(n+v.length)%v.length;var p=v[cur].querySelector('.ph'),b=boite.querySelector('.ph');if(p.classList.contains('ok')){b.classList.add('ok');b.style.setProperty('--img',p.style.getPropertyValue('--img'));b.style.setProperty('--pos','center');b.style.backgroundSize='contain';lab.textContent=''}else{b.classList.remove('ok');b.style.removeProperty('--img');b.style.backgroundSize='';lab.textContent=v[cur].textContent+' (agrandie)'}}
   btns.forEach(function(b){b.addEventListener('click',function(){montre(visibles().indexOf(b));boite.classList.add('on')})});
   boite.querySelector('.fermer').onclick=function(){boite.classList.remove('on')};
   boite.querySelector('.gauche').onclick=function(){montre(cur-1)};
@@ -615,6 +620,14 @@ p+p{margin-top:.9em}
     var o=mnav.classList.toggle('ouvert');
     burger.setAttribute('aria-expanded',o);
   });
+})();
+</script>
+<script>
+(function(){
+  function ld(el){var u=el.getAttribute('data-img');if(!u||el.classList.contains('ok'))return;
+    var i=new Image();i.onload=function(){el.style.setProperty('--img','url("'+u+'")');el.style.setProperty('--pos',el.getAttribute('data-pos')||'center');
+      el.classList.add('ok');var a=el.getAttribute('data-alt');if(a){el.setAttribute('role','img');el.setAttribute('aria-label',a)}};i.src=u}
+  window.ldPh=ld;document.querySelectorAll('.ph[data-img]').forEach(ld);
 })();
 </script>
 </body>

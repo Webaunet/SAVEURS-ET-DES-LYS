@@ -440,6 +440,10 @@ p+p{margin-top:.9em}
   .hero .ph::after{background:linear-gradient(180deg,rgba(16,5,35,.78),rgba(16,5,35,.7) 60%,rgba(16,5,35,.55))}
 }
 
+
+/* photos réelles : data-img chargé par script, sinon cadre « Photo à venir » */
+.ph.ok{background:var(--img) var(--pos,center)/cover no-repeat}
+.ph.ok .ph-label,.ph.ok + .ph-label{display:none}
 </style>
 </head>
 <body>
@@ -517,19 +521,19 @@ p+p{margin-top:.9em}
       <div class="filet"></div>
     </div>
     <div class="survol">
-      <a href="#mariages" class="sv"><div class="ph"><span class="ph-label">Photo à venir</span></div>
+      <a href="#mariages" class="sv"><div class="ph" data-img="images/mariage-salle.jpg" data-pos="50% 70%" data-alt="Salle de réception de mariage aux tables dressées"><span class="ph-label">Photo à venir</span></div>
         <div class="sv-titre"><h3>Mariages &amp; cérémonies</h3></div>
         <div class="sv-desc"><h3>Mariages &amp; cérémonies</h3><p>Vin d'honneur, dîner, brunch du lendemain ou soupe à l'oignon en fin de soirée.</p><span>Découvrir ›</span></div></a>
-      <a href="#buffets-chauds" class="sv"><div class="ph"><span class="ph-label">Photo à venir</span></div>
+      <a href="#buffets-chauds" class="sv"><div class="ph" data-img="images/buffet-chaud.jpg" data-pos="center" data-alt="Buffet chaud de plats mijotés"><span class="ph-label">Photo à venir</span></div>
         <div class="sv-titre"><h3>Buffets chauds</h3></div>
         <div class="sv-desc"><h3>Buffets chauds</h3><p>Des plats généreux et conviviaux, cuisinés maison et préparés à partir de produits frais et de saison.</p><span>Découvrir ›</span></div></a>
-      <a href="#buffets-froids" class="sv"><div class="ph"><span class="ph-label">Photo à venir</span></div>
+      <a href="#buffets-froids" class="sv"><div class="ph" data-img="images/buffet-froid.jpg" data-pos="center" data-alt="Buffet froid de charcuteries et pièces froides"><span class="ph-label">Photo à venir</span></div>
         <div class="sv-titre"><h3>Buffets froids</h3></div>
         <div class="sv-desc"><h3>Buffets froids</h3><p>Pensés pour allier fraîcheur, équilibre et simplicité de service.</p><span>Découvrir ›</span></div></a>
-      <a href="#cocktails" class="sv"><div class="ph"><span class="ph-label">Photo à venir</span></div>
+      <a href="#cocktails" class="sv"><div class="ph" data-img="images/cocktail-pieces.jpg" data-pos="50% 65%" data-alt="Buffet de pièces cocktail dans un jardin fleuri"><span class="ph-label">Photo à venir</span></div>
         <div class="sv-titre"><h3>Cocktails &amp; apéritifs dînatoires</h3></div>
         <div class="sv-desc"><h3>Cocktails &amp; apéritifs dînatoires</h3><p>Pièces cocktail, bouchées salées, mignardises sucrées, ateliers et animations.</p><span>Découvrir ›</span></div></a>
-      <a href="#broche" class="sv"><div class="ph"><span class="ph-label">Photo à venir</span></div>
+      <a href="#broche" class="sv"><div class="ph" data-img="images/broche-cochon.jpg" data-pos="55% 55%" data-alt="Cochon à la broche au feu de bois"><span class="ph-label">Photo à venir</span></div>
         <div class="sv-titre"><h3>Prestations à la broche</h3></div>
         <div class="sv-desc"><h3>Prestations à la broche</h3><p>Cuissons au feu de bois, grandes pièces à partager et esprit festif.</p><span>Découvrir ›</span></div></a>
     </div>
@@ -540,7 +544,7 @@ p+p{margin-top:.9em}
 <section>
   <div class="wrap">
     <article class="bloc" id="mariages">
-      <div class="bloc-img"><div class="ph"><span class="ph-label">Photo à venir : mariage</span></div></div>
+      <div class="bloc-img"><div class="ph" data-img="images/mariage-salle.jpg" data-pos="50% 70%" data-alt="Salle de réception de mariage aux tables dressées"><span class="ph-label">Photo à venir : mariage</span></div></div>
       <div>
         <p class="num">01</p>
         <h2>Mariages &amp; cérémonies</h2>
@@ -552,7 +556,7 @@ p+p{margin-top:.9em}
       </div>
     </article>
     <article class="bloc" id="buffets-chauds">
-      <div class="bloc-img"><div class="ph"><span class="ph-label">Photo à venir : buffet chaud</span></div></div>
+      <div class="bloc-img"><div class="ph" data-img="images/buffet-chaud.jpg" data-pos="center" data-alt="Buffet chaud de plats mijotés"><span class="ph-label">Photo à venir : buffet chaud</span></div></div>
       <div>
         <p class="num">02</p>
         <h2>Buffets chauds</h2>
@@ -562,7 +566,7 @@ p+p{margin-top:.9em}
       </div>
     </article>
     <article class="bloc" id="buffets-froids">
-      <div class="bloc-img"><div class="ph"><span class="ph-label">Photo à venir : buffet froid</span></div></div>
+      <div class="bloc-img"><div class="ph" data-img="images/buffet-froid.jpg" data-pos="center" data-alt="Buffet froid de charcuteries et pièces froides"><span class="ph-label">Photo à venir : buffet froid</span></div></div>
       <div>
         <p class="num">03</p>
         <h2>Buffets froids</h2>
@@ -571,7 +575,7 @@ p+p{margin-top:.9em}
       </div>
     </article>
     <article class="bloc" id="cocktails">
-      <div class="bloc-img"><div class="ph"><span class="ph-label">Photo à venir : cocktail</span></div></div>
+      <div class="bloc-img"><div class="ph" data-img="images/cocktail-pieces.jpg" data-pos="50% 65%" data-alt="Buffet de pièces cocktail dans un jardin fleuri"><span class="ph-label">Photo à venir : cocktail</span></div></div>
       <div>
         <p class="num">04</p>
         <h2>Cocktails &amp; apéritifs dînatoires</h2>
@@ -583,7 +587,7 @@ p+p{margin-top:.9em}
       </div>
     </article>
     <article class="bloc" id="broche">
-      <div class="bloc-img"><div class="ph"><span class="ph-label">Photo à venir : broche / feu de bois</span></div></div>
+      <div class="bloc-img"><div class="ph" data-img="images/broche-cochon.jpg" data-pos="55% 55%" data-alt="Cochon à la broche au feu de bois"><span class="ph-label">Photo à venir : broche / feu de bois</span></div></div>
       <div>
         <p class="num">05</p>
         <h2>Prestations à la broche</h2>
@@ -689,6 +693,14 @@ p+p{margin-top:.9em}
     var o=mnav.classList.toggle('ouvert');
     burger.setAttribute('aria-expanded',o);
   });
+})();
+</script>
+<script>
+(function(){
+  function ld(el){var u=el.getAttribute('data-img');if(!u||el.classList.contains('ok'))return;
+    var i=new Image();i.onload=function(){el.style.setProperty('--img','url("'+u+'")');el.style.setProperty('--pos',el.getAttribute('data-pos')||'center');
+      el.classList.add('ok');var a=el.getAttribute('data-alt');if(a){el.setAttribute('role','img');el.setAttribute('aria-label',a)}};i.src=u}
+  window.ldPh=ld;document.querySelectorAll('.ph[data-img]').forEach(ld);
 })();
 </script>
 </body>

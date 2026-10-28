@@ -440,6 +440,10 @@ p+p{margin-top:.9em}
   .hero .ph::after{background:linear-gradient(180deg,rgba(16,5,35,.78),rgba(16,5,35,.7) 60%,rgba(16,5,35,.55))}
 }
 
+
+/* photos réelles : data-img chargé par script, sinon cadre « Photo à venir » */
+.ph.ok{background:var(--img) var(--pos,center)/cover no-repeat}
+.ph.ok .ph-label,.ph.ok + .ph-label{display:none}
 </style>
 </head>
 <body>
@@ -497,7 +501,7 @@ p+p{margin-top:.9em}
 </header>
 
 <section class="page-hero">
-  <div class="ph"><span class="ph-label">Photo à venir : boutique / vitrine</span></div>
+  <div class="ph" data-img="images/boutique-facade.jpg" data-pos="50% 40%" data-alt="Façade de la boutique Saveurs & des Lys à Brinon-sur-Beuvron"><span class="ph-label">Photo à venir : boutique / vitrine</span></div>
   <div class="wrap">
     <p class="fil"><a href="index.html">Accueil</a> › La boutique</p>
     <p class="eyebrow">Brinon-sur-Beuvron</p>
@@ -516,7 +520,7 @@ p+p{margin-top:.9em}
     <span class="todo" style="max-width:760px;margin:24px auto 0"><b>À compléter :</b> 2 ou 3 phrases d'introduction sur la boutique (fournies par le client).</span>
     <div class="cats">
       <article class="cat">
-        <div class="ph"><span class="ph-label">Photo à venir : plats à emporter</span></div>
+        <div class="ph" data-img="images/plats-emporter.jpg" data-pos="center" data-alt="Plats à emporter cuisinés maison"><span class="ph-label">Photo à venir : plats à emporter</span></div>
         <div class="cat-txt">
           <h3>Plats à emporter</h3>
           <p style="color:var(--texte-2)">Cuisinés maison.</p>
@@ -524,7 +528,7 @@ p+p{margin-top:.9em}
         </div>
       </article>
       <article class="cat">
-        <div class="ph"><span class="ph-label">Photo à venir : épicerie</span></div>
+        <div class="ph" data-img="images/epicerie-locale.jpg" data-pos="center" data-alt="Épicerie et produits locaux"><span class="ph-label">Photo à venir : épicerie</span></div>
         <div class="cat-txt">
           <h3>Épicerie &amp; produits locaux</h3>
           <p style="color:var(--texte-2)">Une sélection de produits locaux.</p>
@@ -652,6 +656,14 @@ p+p{margin-top:.9em}
     var o=mnav.classList.toggle('ouvert');
     burger.setAttribute('aria-expanded',o);
   });
+})();
+</script>
+<script>
+(function(){
+  function ld(el){var u=el.getAttribute('data-img');if(!u||el.classList.contains('ok'))return;
+    var i=new Image();i.onload=function(){el.style.setProperty('--img','url("'+u+'")');el.style.setProperty('--pos',el.getAttribute('data-pos')||'center');
+      el.classList.add('ok');var a=el.getAttribute('data-alt');if(a){el.setAttribute('role','img');el.setAttribute('aria-label',a)}};i.src=u}
+  window.ldPh=ld;document.querySelectorAll('.ph[data-img]').forEach(ld);
 })();
 </script>
 </body>

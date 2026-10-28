@@ -440,6 +440,10 @@ p+p{margin-top:.9em}
   .hero .ph::after{background:linear-gradient(180deg,rgba(16,5,35,.78),rgba(16,5,35,.7) 60%,rgba(16,5,35,.55))}
 }
 
+
+/* photos réelles : data-img chargé par script, sinon cadre « Photo à venir » */
+.ph.ok{background:var(--img) var(--pos,center)/cover no-repeat}
+.ph.ok .ph-label,.ph.ok + .ph-label{display:none}
 </style>
 </head>
 <body>
@@ -527,7 +531,7 @@ p+p{margin-top:.9em}
 
     <!-- MENU DES LYS -->
     <article class="formule" id="menu-des-lys">
-      <div class="f-media"><div class="ph"><span class="ph-label">Photo à venir : assiette Menu des Lys</span></div></div>
+      <div class="f-media"><div class="ph" data-img="images/menu-des-lys.jpg" data-pos="center" data-alt="Assiette dressée du Menu des Lys"><span class="ph-label">Photo à venir : assiette Menu des Lys</span></div></div>
       <div class="f-txt">
         <p class="eyebrow">Mariages et réceptions</p>
         <h2>Menu des Lys</h2>
@@ -558,10 +562,10 @@ p+p{margin-top:.9em}
     <!-- COCKTAILS -->
     <article class="formule" id="cocktails">
       <div class="f-media"><div class="defile" aria-label="Galerie de photos, faire défiler">
-        <div class="ph"><span class="ph-label">Photo à venir 1/4</span></div>
-        <div class="ph"><span class="ph-label">Photo à venir 2/4</span></div>
-        <div class="ph"><span class="ph-label">Photo à venir 3/4</span></div>
-        <div class="ph"><span class="ph-label">Photo à venir 4/4</span></div>
+        <div class="ph" data-img="images/cocktail-pieces.jpg" data-pos="50% 65%" data-alt="Buffet de pièces cocktail dans un jardin fleuri"><span class="ph-label">Photo à venir 1/4</span></div>
+        <div class="ph" data-img="images/plancha-brochettes.jpg" data-pos="50% 70%" data-alt="Brochettes grillées à la plancha lors d'une réception en plein air"><span class="ph-label">Photo à venir 2/4</span></div>
+        <div class="ph" data-img="images/atelier-crepes.jpg" data-pos="30% 40%" data-alt="Atelier galettes et crêpes préparé sur place"><span class="ph-label">Photo à venir 3/4</span></div>
+        <div class="ph" data-img="images/cocktail-verrines.jpg" data-pos="center" data-alt="Verrines et cuillères cocktail"><span class="ph-label">Photo à venir 4/4</span></div>
       </div></div>
       <div class="f-txt">
         <p class="eyebrow">Tous vos événements</p>
@@ -605,8 +609,8 @@ p+p{margin-top:.9em}
     <!-- BROCHE -->
     <article class="formule" id="broche">
       <div class="f-media duo-ph">
-        <div class="ph"><span class="ph-label">Photo à venir : le feu</span></div>
-        <div class="ph"><span class="ph-label">Photo à venir : convivialité</span></div>
+        <div class="ph" data-img="images/broche-cochon.jpg" data-pos="55% 55%" data-alt="Cochon à la broche au feu de bois"><span class="ph-label">Photo à venir : le feu</span></div>
+        <div class="ph" data-img="images/broche-tablee.jpg" data-pos="center" data-alt="Tablée conviviale autour d'une prestation à la broche"><span class="ph-label">Photo à venir : convivialité</span></div>
       </div>
       <div class="f-txt">
         <p class="eyebrow">Feu de bois</p>
@@ -632,10 +636,10 @@ p+p{margin-top:.9em}
     <!-- BUFFETS -->
     <article class="formule" id="buffets">
       <div class="f-media grille">
-        <div class="ph"><span class="ph-label">Photo 1</span></div>
-        <div class="ph"><span class="ph-label">Photo 2</span></div>
-        <div class="ph"><span class="ph-label">Photo 3</span></div>
-        <div class="ph"><span class="ph-label">Photo 4</span></div>
+        <div class="ph" data-img="images/buffet-chaud.jpg" data-pos="center" data-alt="Buffet chaud de plats mijotés"><span class="ph-label">Photo 1</span></div>
+        <div class="ph" data-img="images/buffet-froid.jpg" data-pos="center" data-alt="Buffet froid de charcuteries et pièces froides"><span class="ph-label">Photo 2</span></div>
+        <div class="ph" data-img="images/buffet-salades.jpg" data-pos="center" data-alt="Salades composées de saison"><span class="ph-label">Photo 3</span></div>
+        <div class="ph" data-img="images/buffet-desserts.jpg" data-pos="center" data-alt="Desserts de saison"><span class="ph-label">Photo 4</span></div>
       </div>
       <div class="f-txt">
         <p class="eyebrow">Repas conviviaux</p>
@@ -756,6 +760,14 @@ p+p{margin-top:.9em}
     var o=mnav.classList.toggle('ouvert');
     burger.setAttribute('aria-expanded',o);
   });
+})();
+</script>
+<script>
+(function(){
+  function ld(el){var u=el.getAttribute('data-img');if(!u||el.classList.contains('ok'))return;
+    var i=new Image();i.onload=function(){el.style.setProperty('--img','url("'+u+'")');el.style.setProperty('--pos',el.getAttribute('data-pos')||'center');
+      el.classList.add('ok');var a=el.getAttribute('data-alt');if(a){el.setAttribute('role','img');el.setAttribute('aria-label',a)}};i.src=u}
+  window.ldPh=ld;document.querySelectorAll('.ph[data-img]').forEach(ld);
 })();
 </script>
 </body>

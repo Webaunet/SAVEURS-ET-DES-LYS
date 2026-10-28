@@ -440,6 +440,10 @@ p+p{margin-top:.9em}
   .hero .ph::after{background:linear-gradient(180deg,rgba(16,5,35,.78),rgba(16,5,35,.7) 60%,rgba(16,5,35,.55))}
 }
 
+
+/* photos réelles : data-img chargé par script, sinon cadre « Photo à venir » */
+.ph.ok{background:var(--img) var(--pos,center)/cover no-repeat}
+.ph.ok .ph-label,.ph.ok + .ph-label{display:none}
 </style>
 </head>
 <body>
@@ -558,11 +562,11 @@ p+p{margin-top:.9em}
       <div class="filet"></div>
     </div>
     <div class="cartes">
-      <a href="prestations.html#mariages" class="carte"><div class="ph"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Sur devis</span><h3>Mariages &amp; cérémonies</h3></div></a>
-      <a href="prestations.html#buffets-chauds" class="carte"><div class="ph"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Dès 20 € TTC / pers.</span><h3>Buffets chauds</h3></div></a>
-      <a href="prestations.html#buffets-froids" class="carte"><div class="ph"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Dès 20 € TTC / pers.</span><h3>Buffets froids</h3></div></a>
-      <a href="prestations.html#cocktails" class="carte"><div class="ph"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Dès 1,60 € TTC / pièce</span><h3>Cocktails &amp; apéritifs dînatoires</h3></div></a>
-      <a href="prestations.html#broche" class="carte"><div class="ph"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Sur devis</span><h3>Prestations à la broche</h3></div></a>
+      <a href="prestations.html#mariages" class="carte"><div class="ph" data-img="images/mariage-salle.jpg" data-pos="50% 70%" data-alt="Salle de réception de mariage aux tables dressées"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Sur devis</span><h3>Mariages &amp; cérémonies</h3></div></a>
+      <a href="prestations.html#buffets-chauds" class="carte"><div class="ph" data-img="images/buffet-chaud.jpg" data-pos="center" data-alt="Buffet chaud de plats mijotés"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Dès 20 € TTC / pers.</span><h3>Buffets chauds</h3></div></a>
+      <a href="prestations.html#buffets-froids" class="carte"><div class="ph" data-img="images/buffet-froid.jpg" data-pos="center" data-alt="Buffet froid de charcuteries et pièces froides"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Dès 20 € TTC / pers.</span><h3>Buffets froids</h3></div></a>
+      <a href="prestations.html#cocktails" class="carte"><div class="ph" data-img="images/cocktail-pieces.jpg" data-pos="50% 65%" data-alt="Buffet de pièces cocktail dans un jardin fleuri"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Dès 1,60 € TTC / pièce</span><h3>Cocktails &amp; apéritifs dînatoires</h3></div></a>
+      <a href="prestations.html#broche" class="carte"><div class="ph" data-img="images/broche-cochon.jpg" data-pos="55% 55%" data-alt="Cochon à la broche au feu de bois"></div><span class="ph-label">Photo à venir</span><div class="carte-txt"><span>Sur devis</span><h3>Prestations à la broche</h3></div></a>
     </div>
     <div class="centre-btn"><a href="prestations.html" class="btn btn-ligne">Voir toutes nos prestations</a></div>
   </div>
@@ -673,6 +677,14 @@ p+p{margin-top:.9em}
     var o=mnav.classList.toggle('ouvert');
     burger.setAttribute('aria-expanded',o);
   });
+})();
+</script>
+<script>
+(function(){
+  function ld(el){var u=el.getAttribute('data-img');if(!u||el.classList.contains('ok'))return;
+    var i=new Image();i.onload=function(){el.style.setProperty('--img','url("'+u+'")');el.style.setProperty('--pos',el.getAttribute('data-pos')||'center');
+      el.classList.add('ok');var a=el.getAttribute('data-alt');if(a){el.setAttribute('role','img');el.setAttribute('aria-label',a)}};i.src=u}
+  window.ldPh=ld;document.querySelectorAll('.ph[data-img]').forEach(ld);
 })();
 </script>
 </body>

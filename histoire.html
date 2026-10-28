@@ -440,6 +440,10 @@ p+p{margin-top:.9em}
   .hero .ph::after{background:linear-gradient(180deg,rgba(16,5,35,.78),rgba(16,5,35,.7) 60%,rgba(16,5,35,.55))}
 }
 
+
+/* photos réelles : data-img chargé par script, sinon cadre « Photo à venir » */
+.ph.ok{background:var(--img) var(--pos,center)/cover no-repeat}
+.ph.ok .ph-label,.ph.ok + .ph-label{display:none}
 </style>
 </head>
 <body>
@@ -508,7 +512,7 @@ p+p{margin-top:.9em}
 
 <section class="section">
   <div class="wrap portrait">
-    <div class="ph"><span class="ph-label">Photo à venir : portrait d'Antoine en cuisine</span></div>
+    <div class="ph" data-img="images/mariage-service.jpg" data-pos="72% 40%" data-alt="Un cuisinier de Saveurs & des Lys dresse une table sous chapiteau"><span class="ph-label">Photo à venir : portrait d'Antoine en cuisine</span></div>
     <div>
       <p class="eyebrow">Le parcours</p>
       <h2>Antoine Fischer</h2>
@@ -535,8 +539,8 @@ p+p{margin-top:.9em}
     </div>
     <div>
       <p class="eyebrow">L'équipe</p>
-      <h3>En cuisine et en salle</h3>
-      <span class="todo"><b>À compléter :</b> nombre de personnes, rôles, prénoms à citer ou non, photo d'équipe.</span>
+      <div class="ph" data-img="images/equipe.jpg" data-pos="50% 45%" data-alt="L'équipe de Saveurs & des Lys en tenue de service" style="aspect-ratio:4/3;margin:0 0 16px"></div><h3>En cuisine et en salle</h3>
+      <span class="todo"><b>À compléter :</b> nombre de personnes, rôles, prénoms à citer ou non.</span>
     </div>
   </div>
 </section>
@@ -631,6 +635,14 @@ p+p{margin-top:.9em}
     var o=mnav.classList.toggle('ouvert');
     burger.setAttribute('aria-expanded',o);
   });
+})();
+</script>
+<script>
+(function(){
+  function ld(el){var u=el.getAttribute('data-img');if(!u||el.classList.contains('ok'))return;
+    var i=new Image();i.onload=function(){el.style.setProperty('--img','url("'+u+'")');el.style.setProperty('--pos',el.getAttribute('data-pos')||'center');
+      el.classList.add('ok');var a=el.getAttribute('data-alt');if(a){el.setAttribute('role','img');el.setAttribute('aria-label',a)}};i.src=u}
+  window.ldPh=ld;document.querySelectorAll('.ph[data-img]').forEach(ld);
 })();
 </script>
 </body>
